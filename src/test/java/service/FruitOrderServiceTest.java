@@ -1,5 +1,6 @@
 package service;
 
+import com.entity.Order;
 import com.service.FruitOrderService;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,23 +15,28 @@ public class FruitOrderServiceTest {
 
     @Test
     public void shouldCalculateCorrectTotals() {
-        String result = fos.orderFruit(2, 1);
-        assertEquals(result, "{\n\"Apples\":" + 1 + ",\n\"AppleTotal\":" + 0.6 + ",\n\"AppleDiscount\":" + 0.0
-                +",\n\"Oranges\":" + 2 + ",\n\"OrangeTotal\":" + 0.5 + ",\n\"OrangeDiscount\":" + 0.0
-                +",\n\"OrderTotal\":" + 1.1 + "}");
+        Order expected = new Order(1, 1.0, 2, 1.0, 1.1);
+        Order result = fos.orderFruit(1, 2);
+        assertEquals(expected.getTotal(), result.getTotal());
     }
 
     @Test
     public void shouldNotAllowNegativeValues() {
-        String result = fos.orderFruit(-1, -2);
-        assertTrue(result.equals("Negative quantities detected"));
+        Order result = fos.orderFruit(-1, -2);
+        assertEquals(null, result);
     }
 
     @Test
     public void shouldCalculateCorrectDiscounts() {
-        String result = fos.orderFruit(4, 2);
-        assertEquals(result, "{\n\"Apples\":" + 2 + ",\n\"AppleTotal\":" + 1.2 + ",\n\"AppleDiscount\":" + 0.6
-                +",\n\"Oranges\":" + 4 + ",\n\"OrangeTotal\":" + 1.0 + ",\n\"OrangeDiscount\":" + 0.25
-                +",\n\"OrderTotal\":" + 1.35 + "}");
+        Order expected = new Order(2, 1.0, 3, 1.0, 1.1);
+        Order result = fos.orderFruit(2, 3);
+        assertEquals(expected.getTotal(), result.getTotal());
+    }
+
+    @Test
+    public void shouldCalculateCorrectTotalsAtHighOrderQuantities() {
+        Order expected = new Order(14, 1.0, 9, 1.0, 9.9);
+        Order result = fos.orderFruit(14, 9);
+        assertEquals(expected.getTotal(), result.getTotal());
     }
 }

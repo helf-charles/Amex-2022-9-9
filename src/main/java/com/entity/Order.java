@@ -1,31 +1,56 @@
 package com.entity;
 
-import com.enums.Fruit;
+import javax.persistence.*;
 
-import java.util.List;
-
+@Entity
 public class Order {
-    private List<Fruit> fruitList;
-    private List<Integer> quantityList;
-    private double totalPrice;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column
+    private int numApples;
+    @Column
+    private double appleVersion;
+    @Column
+    private int numOranges;
+    @Column
+    private double orangeVersion;
+    @Column
+    private double total;
 
-    public void setFruitList(List<Fruit> fruitList) {
-        this.fruitList = fruitList;
-    }
-    public void setQuantityList(List<Integer> quantityList) {
-        this.quantityList = quantityList;
-    }
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public Order() {
+        setNumApples(0);
+        setAppleVersion(1.0);
+        setNumOranges(0);
+        setOrangeVersion(1.0);
+        setTotal(0.0);
     }
 
-    public List<Fruit> getFruitList() {
-        return this.fruitList;
+    public Order(int numApples, double appleVersion, int numOranges, double orangeVersion, double total) {
+        setNumApples(numApples);
+        setAppleVersion(appleVersion);
+        setNumOranges(numOranges);
+        setOrangeVersion(orangeVersion);
+        setTotal(total);
     }
-    public List<Integer> getQuantityList() {
-        return this.quantityList;
+
+    public void setNumApples(int numApples) {
+        this.numApples = numApples;
     }
-    public double getTotalPrice() {
-        return this.totalPrice;
+    public void setAppleVersion(double appleVersion) { this.appleVersion = appleVersion; }
+    public void setNumOranges(int numOranges) {
+        this.numOranges = numOranges;
     }
+    public void setOrangeVersion(double orangeVersion) { this.orangeVersion = orangeVersion; }
+    public void setTotal(double total) { this.total = total; }
+
+    public int getNumApples() {
+        return this.numApples;
+    }
+    public double getAppleVersion() { return this.appleVersion; }
+    public int getNumOranges() {
+        return this.numOranges;
+    }
+    public double getOrangeVersion() { return this.orangeVersion; }
+    public double getTotal() { return this.total; }
 }
