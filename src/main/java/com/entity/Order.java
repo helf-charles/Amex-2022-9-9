@@ -2,7 +2,7 @@ package com.entity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="ORDERS")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

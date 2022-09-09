@@ -32,6 +32,6 @@ public class FruitOrderController {
     @GetMapping("/orderFruit")
     public Order orderFruit(@RequestParam(value = "numOranges", defaultValue = "0") int numOranges,
                             @RequestParam(value = "numApples", defaultValue = "0") int numApples) {
-        return fos.orderFruit(numOranges, numApples);
+        return fror.save(fos.orderFruit(numOranges, numApples));
     }
 }

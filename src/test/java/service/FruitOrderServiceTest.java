@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class FruitOrderServiceTest {
@@ -27,7 +26,7 @@ public class FruitOrderServiceTest {
     }
 
     @Test
-    public void shouldCalculateCorrectDiscounts() {
+    public void shouldCalculateCorrectTotalsWithDiscounts() {
         Order expected = new Order(2, 1.0, 3, 1.0, 1.1);
         Order result = fos.orderFruit(2, 3);
         assertEquals(expected.getTotal(), result.getTotal());
@@ -35,7 +34,7 @@ public class FruitOrderServiceTest {
 
     @Test
     public void shouldCalculateCorrectTotalsAtHighOrderQuantities() {
-        Order expected = new Order(14, 1.0, 9, 1.0, 9.9);
+        Order expected = new Order(14, 1.0, 9, 1.0, 5.7);
         Order result = fos.orderFruit(14, 9);
         assertEquals(expected.getTotal(), result.getTotal());
     }
