@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 public class FruitOrderController {
 
@@ -30,8 +33,18 @@ public class FruitOrderController {
     }
 
     @GetMapping("/orderFruit")
-    public Order orderFruit(@RequestParam(value = "numOranges", defaultValue = "0") int numOranges,
-                            @RequestParam(value = "numApples", defaultValue = "0") int numApples) {
-        return fror.save(fos.orderFruit(numOranges, numApples));
+    public Order orderFruit(@RequestParam(value = "numApples", defaultValue = "0") int numOranges,
+                            @RequestParam(value = "numOranges", defaultValue = "0") int numApples) {
+        return fror.save(fos.orderFruit(numApples, numOranges));
+    }
+
+    @GetMapping("/findOrder")
+    public Optional<Order> findOrderById(@RequestParam(value = "orderId", defaultValue = "0") long orderId) {
+        return fror.findById(orderId);
+    }
+
+    @GetMapping("/findAllOrders")
+    public List<Order> findAllOrders() {
+        return fror.findAll();
     }
 }

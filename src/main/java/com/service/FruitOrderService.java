@@ -2,15 +2,15 @@ package com.service;
 
 import com.entity.Order;
 import com.enums.Fruit;
-import com.repository.FruitOrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 @Service
 public class FruitOrderService {
 
-    @Autowired
-    private FruitOrderRepository fror;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public Order orderFruit(int numApples, int numOranges) {
         if ((numOranges < 0) || (numApples < 0)) {
@@ -34,6 +34,8 @@ public class FruitOrderService {
     }
 
     public double calculateDiscount(int numFruit, Fruit fruit) {
-        return ((numFruit / fruit.getDiscountQuantity()) * fruit.getDiscountValue());
+        double result = ((numFruit / fruit.getDiscountQuantity()) * fruit.getDiscountValue());
+        BigDecimal bd = new BigDecimal(String.valueOf(result));
+        return Double.valueOf(bd.toString());
     }
 }
